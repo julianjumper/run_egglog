@@ -201,11 +201,12 @@ Even though there is no official documentation, there are some useful links:
 
 - https://egraphs-good.github.io/egglog/ <br>
   This has many examples and it is very likely so find the syntax or semantic you are looking for.
+- [YouTube Tutorial](https://www.youtube.com/watch?v=N2RDQGRBrSY&pp=ygUGZWdnbG9n) by one of the Egglog contributors
 - [Egglog-Python documentation](https://github.com/egraphs-good/egglog-python/tree/main/docs): Even though it is for the Python library of Egglog, it can still be useful in some cases.
 - [Another person explaining Egglog](http://www.chriswarbo.net/blog/2024-02-25-sk_logic_in_egglog_1.html)
 - [ArchLab's Elephant Egglog repository with examples](https://github.com/pllab/elephant/blob/main/egglog/test.egg)
 - [This official Egglog paper](https://arxiv.org/pdf/2304.04332)
-- ["Egglog in practice"](https://effect.systems/doc/egraphs-2023-egglog/paper.pdf)  by one of the Egglog contributor
+- ["Egglog in practice"](https://effect.systems/doc/egraphs-2023-egglog/paper.pdf)  by one of the Egglog contributors
 
 ## Run Egglog
 
