@@ -1,0 +1,50 @@
+;; Please read the readme in the root folder for an explanation of this code.
+;; Zach's code gives a more detailed example file, have a look at it: https://github.com/pllab/elephant/blob/main/egglog/test.egg
+
+(include "./tests/_wont_be_tested.egg") ; just to demonstrate how to include files, this include has now use, though
+
+;; Define a new datatype called Expr
+(datatype Expr
+   (Wire String i64)  ; each line here is a constructor
+   (And Expr Expr)
+   (Or Expr Expr)
+   (Not Expr)
+   (Mux Expr Expr)
+)
+;; You can also add constructors to a datatype with this notation
+(constructor Concat (Expr Expr) Expr)  ; This is actually a function with having a output value of its own type and with no merge behavior
+
+
+;; Define three wires s, a and b
+(let s (Wire "s" 1))
+(let a (Wire "a" 1))
+(let b (Wire "b" 1))
+
+;; Rule that describes the equivalence between
+(ruleset typing)  ; create ruleset called typing
+(rule
+    ; The "left" side: here it is the gate logic of the multiplexer
+    ((Or (And a (Not s)) (And b s)))  
+
+    ; The "right" side; here we "union" it (declare equivalence) with the expression of the left side
+    ((union 
+        (Or (And a (Not s)) (And b s))  ; this is equivalent to...
+        (Mux s (Concat a b))            ; ... this
+    ))
+    :ruleset typing
+)
+
+;; Create the gate-level equivalent circuit of a mux with the keyword "let"
+(let mux_circuit 
+    (Or 
+     (And a (Not s)) 
+     (And b s)))
+;; And the equivalent expression which a single Mux expression, which is cheaper than using two ANDs and one OR
+(let mux_expression (Mux s (Concat a b)))
+
+;; Run the typing ruleset
+(run-schedule (repeat 5) (saturate typing))
+;; The rule defined above now creates an equivalence class between these two expressions and the check passes.
+(check (= mux_circuit mux_expression))
+;; We can also extract the mux_circuit
+(query-extract mux_circuit)  ; This should output: "extracted with cost 11: (Mux (Wire "s" 1) (Concat (Wire "a" 1) (Wire "b" 1)))"

@@ -1,0 +1,13 @@
+;; This is the fibonacci example from https://egraphs-good.github.io/egglog/?example=fibonacci
+
+(function fib (i64) i64 :no-merge)      ; define function fib
+(set (fib 0) 0)                         ; set values of the function for input 0 to 0
+(set (fib 1) 1)                         ; and for input 1 to 1
+
+(rule ((= f0 (fib x))                   ; if there is a fib function call with input x
+       (= f1 (fib (+ x 1))))            ; and also one for input (x+1)
+      ((set (fib (+ x 2)) (+ f0 f1))))  ; then the function value for (x+2) is set to fib(x) + fib(x+1)
+
+(run 7)                                 ; run the fibonacci rule seven times
+
+(check (= (fib 7) 13))                  ; check the output of fib(7) to be 13

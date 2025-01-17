@@ -1,0 +1,2 @@
+;; this file wont be executed by the test script run_all_tests.sh
+(datatype SomeStuff (Test String))
