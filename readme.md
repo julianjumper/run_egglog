@@ -6,7 +6,7 @@
 - [Different styles of defining and declaring functions](#different-styles-of-defining-and-declaring-functions)
   - [Functions](#functions)
 - [Rule and Rewrite - intermediate variables, pattern matching and some syntactic sugar](#rule-and-rewrite---intermediate-variables-pattern-matching-and-some-syntactic-sugar)
-- [Useful inbuilt functions (Vectors, Sets, etc.)](#useful-inbuilt-functions)
+- [Useful inbuilt functions (Vectors, Sets, etc.)](#useful-inbuilt-functions-vectors-sets-etc)
 - [Include other files](#include-other-files)
 - [Useful resources](#useful-resources)
 - [Install and run Egglog](#run-egglog)
