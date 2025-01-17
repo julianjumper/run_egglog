@@ -6,6 +6,7 @@
 - [Different styles of defining and declaring functions](#different-styles-of-defining-and-declaring-functions)
   - [Functions](#functions)
 - [Rule and Rewrite - intermediate variables, pattern matching and some syntactic sugar](#rule-and-rewrite---intermediate-variables-pattern-matching-and-some-syntactic-sugar)
+- [Useful inbuilt functions (Vectors, Sets, etc.)](#useful-inbuilt-functions)
 - [Include other files](#include-other-files)
 - [Useful resources](#useful-resources)
 - [Install and run Egglog](#run-egglog)
@@ -22,15 +23,15 @@ Egglog is a language with an underlying e-graph (equivalence-graph) database. Th
 
 ## Example in Egglog
 
-Let us define the Mux example frome above in Egglog!<br>
-Obviously, we need to define a Multiplexer. But first, we need some kind of singals, which are represented as `a`, `b` and `s` in the example. Let's call it `Wire`:
+Let us define the Mux example from above in Egglog!<br>
+Obviously, we need to define a Multiplexer. But first, we need some kind of signals, which are represented as `a`, `b` and `s` in the example. Let's call it `Wire`:
 
 ```
 (sort Expr)
 (constructor Wire (String i64) Expr)
 ```
 
-This defines a new constructor for a `Wire`. The `sort` keyword defines a new datatype (the developers of Egglog say the reason to use the name `sort` has no particular reason). The things we add to a datatype, like `Wire`, are functions. Functions take inputs and give an output of any type and have a "merge behaviour" which defines how to solve conflicts between the output value of two equivalent objects. But as you may have noticed, we used a constructor. A constructor, on the other hand, is a function, that returns a value of its own type and don't need to have a merge behaviour specified. In this example, the constructor is called `Wire` and has two inputs of type `String` and `i64` (both are inbuilt datatypes) and outputs itself - which is an Expr. <br>
+This defines a new constructor for a `Wire`. The `sort` keyword defines a new datatype (the developers of Egglog say the reason to use the name `sort` has no particular reason). The things we add to a datatype, like `Wire`, are functions. Functions take inputs and give an output of any type and have a "merge behaviour" which defines how to solve conflicts between the output value of two equivalent objects (more on that [later](#functions)). But as you may have noticed, we used a constructor. A constructor, on the other hand, is a function, that returns a value of its own type and doesn't need to have a merge behaviour specified. In this example, the constructor is called `Wire` and has two inputs of type `String` and `i64` (both are inbuilt datatypes) and outputs itself - which is an Expr. <br>
 Later, it can be called with this syntax: `(Wire "s" 1)`.<br>
 
 Now, we can continue to implement the functions we need for the example.<br>
@@ -191,6 +192,23 @@ This is useful in many cases. But the simple first two notations can also be exp
 )
 ```
 
+## Useful inbuilt functions (Vectors, Sets, etc.)
+
+There are some inbuilt datatypes with inbuilt functions:
+
+#### Vector
+- `(vec-of 1 2 3)` => creates a vector of the three numbers `1`, `2` and `3`
+- `(vec-pop 1 2 3)` => removes the last element (`3`) temporarily
+- `(vec-push (vec-push (vec-empty) 1) 2)))` => `vec-empty` is an empty vector, `vec-push` adds an element. Therefore, the result is `(vec-of 1 2)`
+- `(vec-append (vec-of 1 2) (vec-of 3 4))` => `(vec-of 1 2 3 4)`
+- `(vec-not-contains (vec-of 1 2 3) 4)` => true. Checks if element is not in vector
+- `(vec-contains (vec-of 1 2 3) 2)` => true. Checks if element is in vector
+- `(vec-length (vec-of 1 2 3))` => ouputs length
+- `(vec-get (vec-of 1 2 3) 1)` => read memory at given index (starts at index 0)
+- `(vec-set (vec-of 1 2 3) 1 4)` => sets element at index `1` to number `4`
+
+There are also [sets](https://egraphs-good.github.io/egglog/?example=set) and other functions which can maybe or maybe not be found in one of the example files on [this GitHub page](https://egraphs-good.github.io/egglog/).
+
 ## Include other files
 
 Other Egglog files can easily be included with `include <filename>.egg`.
@@ -199,7 +217,7 @@ Other Egglog files can easily be included with `include <filename>.egg`.
 
 Even though there is no official documentation, there are some useful links:
 
-- https://egraphs-good.github.io/egglog/ <br>
+- [https://egraphs-good.github.io/egglog/](https://egraphs-good.github.io/egglog/) <br>
   This has many examples and it is very likely so find the syntax or semantic you are looking for.
 - [YouTube Tutorial](https://www.youtube.com/watch?v=N2RDQGRBrSY&pp=ygUGZWdnbG9n) by one of the Egglog contributors
 - [Egglog-Python documentation](https://github.com/egraphs-good/egglog-python/tree/main/docs): Even though it is for the Python library of Egglog, it can still be useful in some cases.
