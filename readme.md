@@ -204,7 +204,7 @@ Here an example inspired from [here](https://egraphs-good.github.io/egglog/?exam
 (rule 
     ((= mul (Mul (Num 3) x)))
     ((union mul (Add x (Add x x)))
-    (subsume (Mul (Num 3) x)))      ; you can't use a variable as an argument for some reason 🤷
+    (subsume (Mul (Num 3) x)))  ; you can't use a variable as an argument for some reason 🤷
 )
 ```
 
@@ -215,7 +215,7 @@ which is equivalent to:
 ```
 
 This example rewrites a multiplication with `3` (e.g. `3 * 2` `=>` `(Mul 3 2)`) to an equivalent expression with addition (`2 + 2 + 2` `=>` `(Add 2 (Add 2 2))`).
-That could be useful in a scenario in which we have a compiler that is unreasonable bad in mulitplication with `2`. These two expressions are still equivalent but `(query-extract (Mul (Num 3) (Num 2)))` would now output `(Add (Num 2) (Add (Num 2) (Num 2)))` even though it has a higher cost. <br> 
+That could be useful in a scenario in which we have a compiler that is unreasonable bad in mulitplication with `3`. These two expressions are still equivalent but `(query-extract (Mul (Num 3) (Num 2)))` would now output `(Add (Num 2) (Add (Num 2) (Num 2)))` even though it has a higher cost. <br> 
 
 I noticed in the rule form (first code snipped) that you cannot use variables as an argument for the subsume function. I don't know why but that's the reason why I don't use `mul` in the example above.
 
