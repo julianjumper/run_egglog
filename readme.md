@@ -6,6 +6,7 @@
 - [Different styles of defining and declaring functions](#different-styles-of-defining-and-declaring-functions)
   - [Functions](#functions)
 - [Rule and Rewrite - intermediate variables, pattern matching and some syntactic sugar](#rule-and-rewrite---intermediate-variables-pattern-matching-and-some-syntactic-sugar)
+- [Subsume - replacing expressions / making them unextractable](#subsume---replacing-expressions--making-them-unextractable)
 - [Useful inbuilt functions (Vectors, Sets, etc.)](#useful-inbuilt-functions-vectors-sets-etc)
 - [Include other files](#include-other-files)
 - [Useful resources](#useful-resources)
@@ -191,6 +192,32 @@ This is useful in many cases. But the simple first two notations can also be exp
     :ruleset typing
 )
 ```
+
+## Subsume - replacing expressions / making them unextractable
+
+Sometimes, there are expressions that are equivalent, but that you don't want to have as a valid solution. This could be the case if an expression is so expensive that using it is not feasible. Or if you face the same situation as me, that you use an expression as an intermediate expression that is processed to other expressions. I obviously don't want the intermediate expression to be a valid solution. <br>
+
+This is where `subsume` becomes useful. `subsume` can be used as a function to prevent exactly that. <br>
+Here an example inspired from [here](https://egraphs-good.github.io/egglog/?example=subsume) (assuming we defined an expression `Add`, `Mul` and `Num`):
+
+```egglog
+(rule 
+    ((= mul (Mul (Num 3) x)))
+    ((union mul (Add x (Add x x)))
+    (subsume (Mul (Num 3) x)))      ; you can't use a variable as an argument for some reason 🤷
+)
+```
+
+which is equivalent to:
+
+```egglog
+(rewrite (Mul (Num 3) x) (Add x (Add x x)) :subsume)
+```
+
+This example rewrites a multiplication with `3` (e.g. `3 * 2` `=>` `(Mul 3 2)`) to an equivalent expression with addition (`2 + 2 + 2` `=>` `(Add 2 (Add 2 2))`).
+That could be useful in a scenario in which we have a compiler that is unreasonable bad in mulitplication with `2`. These two expressions are still equivalent but `(query-extract (Mul (Num 3) (Num 2)))` would now output `(Add (Num 2) (Add (Num 2) (Num 2)))` even though it has a higher cost. <br> 
+
+I noticed in the rule form (first code snipped) that you cannot use variables as an argument for the subsume function. I don't know why but that's the reason why I don't use `mul` in the example above.
 
 ## Useful inbuilt functions (Vectors, Sets, etc.)
 
