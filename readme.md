@@ -234,7 +234,20 @@ There are some inbuilt datatypes with inbuilt functions:
 - `(vec-get (vec-of 1 2 3) 1)` => read memory at given index (starts at index 0)
 - `(vec-set (vec-of 1 2 3) 1 4)` => sets element at index `1` to number `4`
 
-There are also [sets](https://egraphs-good.github.io/egglog/?example=set) and other functions which can maybe or maybe not be found in one of the example files on [this GitHub page](https://egraphs-good.github.io/egglog/).
+There are also [sets](https://egraphs-good.github.io/egglog/?example=set) and other functions which can maybe or maybe not be found in one of the example files on [this GitHub page](https://egraphs-good.github.io/egglog/). <br>
+For sets, I also found these inbuilts somewhere in the egglog rust code:
+
+- `set-of`
+- `set-empty`
+- `set-insert`
+- `set-not-contains`
+- `set-contains`
+- `set-remove`
+- `set-union`
+- `set-diff`
+- `set-intersect`
+- `set-get`
+- `set-length`
 
 ## Include other files
 
